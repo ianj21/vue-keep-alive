@@ -1,0 +1,26 @@
+{
+  "name": "vue-keep-alive",
+  "version": "1.0.0",
+  "description": "vue缓存组件，解决vue官方组件keep-alive缓存多级嵌套路由无效的问题",
+  "main": "dist/amd/index.js",
+  "module": "dist/esm/index.js",
+  "scripts": {
+    "build": "npm run clean && rollup --config ./rollup.config.js",
+    "clean": "rimraf ./dist",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "wjian",
+  "license": "ISC",
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^13.0.6",
+    "@vue/compiler-sfc": "^3.1.5",
+    "cssnano": "^5.0.8",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.58.3",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-postcss": "^3.0.0",
+    "rollup-plugin-vue": "^6.0.0",
+    "sass": "^1.43.4"
+  }
+}
