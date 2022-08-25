@@ -10,7 +10,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "wjian",
+  "author": "weij",
   "license": "ISC",
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^13.0.6",
