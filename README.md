@@ -1,28 +1,14 @@
 # vue-keep-alive
 
-#### 介绍
+#### Instructions
 vue缓存组件，解决vue官方组件keep-alive缓存多级嵌套路由无效的问题
 
 
 
 ## Installing
 
-Using npm:
-
 ```
-$ npm install vue-keep-alive
-```
-
-Using bower:
-
-```
-$ bower install vue-keep-alive
-```
-
-Using yarn:
-
-```
-$ yarn add vue-keep-alive
+npm i @vue-helper/vue-keep-alive
 ```
 
 
