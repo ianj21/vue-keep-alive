@@ -112,12 +112,9 @@ var VueKeepAlive = {
   abstract: true,
 
   props: {
-    include: [Array, String],
-    exclude: [Array, String],
-    max: {
-      type: [String, Number],
-      default: 0
-    }
+    include: [Array, String, RegExp],
+    exclude: [Array, String, RegExp],
+    max: [String, Number]
   },
 
   created () {
