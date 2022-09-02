@@ -18,7 +18,7 @@ npm i @vue-helper/vue-keep-alive
 全局注册
 
 ```vue
-import VueKeepAlive from 'vue-keep-aliver';
+import VueKeepAlive from '@vue-helper/vue-keep-alive';
 
 Vue.use(VueKeepAlive);
 ```
@@ -26,7 +26,7 @@ Vue.use(VueKeepAlive);
 局部注册
 
 ```
-import { VueKeepAlive } from "vue-keep-alive";
+import { VueKeepAlive } from '@vue-helper/vue-keep-alive';
 
 export default {
 	components: { 
