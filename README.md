@@ -25,7 +25,7 @@ Vue.use(VueKeepAlive);
 ```vue
 <template>
   <div class="app-container">
-    <vue-keep-alive :include="keepAliveNames" :max="10">
+    <vue-keep-alive :include="keepAliveNames" :max="10" :onRemove="onRemove">
       <router-view :key="$route.path" />
     </vue-keep-alive>
   </div>
@@ -43,6 +43,14 @@ export default {
       return [];
     },
   },
+  methods: {
+    onRemove(key, s) {
+      if (true) {
+        console.log('key, s: ', key, s);
+        s.removeItem(key)
+      }
+    }
+  }
 };
 </script>
 ```
@@ -53,8 +61,11 @@ export default {
 
 ### Attributes
 
-| 参数      | 说明                                               | 类型                      | 默认值 |
-| --------- | -------------------------------------------------- | ------------------------- | ------ |
-| `include` | 字符串或正则表达式。只有名称匹配的组件会被缓存     | `[String, RegExp, Array]` | -      |
-| `exclude` | 字符串或正则表达式。任何名称匹配的组件都不会被缓存 | `[String, RegExp, Array]` | -      |
-| `max`     | 数字。最多可以缓存多少组件实例                     | `[String, Number]`        | -      |
+| 参数       | 说明                                                       | 类型                      | 默认值 |
+| ---------- | ---------------------------------------------------------- | ------------------------- | ------ |
+| `include`  | 字符串或正则表达式。只有名称匹配的组件会被缓存             | `[String, RegExp, Array]` | -      |
+| `exclude`  | 字符串或正则表达式。任何名称匹配的组件都不会被缓存，非必传 | `[String, RegExp, Array]` | -      |
+| `max`      | 数字。最多可以缓存多少组件实例，非必传                     | `[String, Number]`        | -      |
+| `isBack`   | 是否返回页面，不传将自动判断，非必传                       | `Function(to, from)`      |        |
+| `onRemove` | 外部控制删除缓存，非必传                                   | `Function(key, s)`        |        |
+

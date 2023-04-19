@@ -1,6 +1,6 @@
 {
   "name": "@vue-helper/vue-keep-alive",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "vue缓存组件，解决vue官方组件keep-alive缓存多级嵌套路由无效的问题",
   "main": "dist/amd/index.js",
   "module": "dist/esm/index.js",
@@ -8,7 +8,8 @@
     "build": "npm run clean && rollup --config ./rollup.config.js",
     "clean": "rimraf ./dist",
     "prepublishOnly": "npm run build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "publish": "npm publish"
   },
   "keywords": [],
   "author": "weij",

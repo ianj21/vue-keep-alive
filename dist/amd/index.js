@@ -57,14 +57,6 @@ define(['exports'], (function (exports) { 'use strict';
     return opts && (opts.Ctor.options.name || opts.tag)
   }
 
-  const cacheConfig = {
-    cache: {},
-    keys: [],
-    vnodeToCache: null,
-    keyToCache: '',
-    _vnode: null,
-  };
-
   function matches (pattern, name) {
     if (Array.isArray(pattern)) {
       return pattern.indexOf(name) > -1
@@ -104,6 +96,23 @@ define(['exports'], (function (exports) { 'use strict';
     remove(keys, key);
   }
 
+  const cacheConfig = {
+    cache: {},
+    keys: [],
+    vnodeToCache: null,
+    keyToCache: '',
+    _vnode: null,
+    removeItem(key) {
+      const { cache, keys, _vnode } = this;
+      const entry = cache[key];
+      if (entry) {
+        if (entry.name) {
+          pruneCacheEntry(cache, key, keys, _vnode);
+        }
+      }
+    }
+  };
+
   const pathState = {
     fromRoute: {},
     toRoute: {},
@@ -116,7 +125,14 @@ define(['exports'], (function (exports) { 'use strict';
     props: {
       include: [Array, String, RegExp],
       exclude: [Array, String, RegExp],
-      max: [String, Number]
+      max: [String, Number],
+      isBack: {
+        type: Function,
+        default: isRouterBack
+      },
+      onRemove: {
+        type: Function,
+      },
     },
 
     created () {
@@ -181,15 +197,21 @@ define(['exports'], (function (exports) { 'use strict';
         }
 
 
-        const { cache, keys } = cacheConfig;
         const key = vnode.key == null
           // same constructor may get registered as different local components
           // so cid alone is not enough (#3269)
           ? componentOptions.Ctor.cid + (componentOptions.tag ? `::${componentOptions.tag}` : '')
           : vnode.key;
-        const isBack = isRouterBack(pathState.toRoute, pathState.fromRoute);
-        const isCache = (include || exclude) ? isBack : true;
-        if (cache[key] && isCache) {
+          // 是否删除页面缓存
+        const isBack = this.isBack(pathState.toRoute, pathState.fromRoute);
+        if (!isBack) {
+          cacheConfig.removeItem(key);
+        }
+        if (this.onRemove) {
+          this.onRemove(key, cacheConfig);
+        }
+        const { cache, keys } = cacheConfig;
+        if (cache[key]) {
           vnode.componentInstance = cache[key].componentInstance;
           // make current key freshest
           remove(keys, key);
