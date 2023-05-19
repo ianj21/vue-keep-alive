@@ -35,6 +35,7 @@ Vue.use(VueKeepAlive);
 import { VueKeepAlive } from "@vue-helper/vue-keep-alive";
 
 export default {
+  name: "AppMain",
   components: {
     VueKeepAlive,
   },
@@ -59,6 +60,99 @@ export default {
 };
 </script>
 ```
+
+路由配置示例
+
+```js
+
+  path: '/plugin',
+  component: () => import("@/layout/index.vue"),
+  alwaysShow: true,
+  name: 'Plugin',
+  meta: {
+    title: '组件',
+    icon: 'plugin',
+  },
+  children: [
+    {
+      path: '/menu1',
+      component: () => import('@/views/plugin/menu1/index.vue'),
+      redirect: "/list",
+      name: 'Menu1',
+      meta: {
+        title: '二级菜单',
+      },
+      children: [
+        {
+          path: '/list',
+          component: () => import('@/views/plugin/menu1/list/index.vue'),
+          name: 'List',
+          meta: {
+            title: '三级菜单',
+            keepAlive: true,
+          }
+        },
+        {
+          path: '/list/detail',
+          component: () => import('@/views/plugin/menu1/detail/index.vue'),
+          name: 'ListDetail',
+          meta: {
+            hidden: true,
+            title: 'detail',
+          }
+        },
+      ]
+    },
+  ]
+```
+
+
+
+layout/index.vue
+
+```vue
+<template>
+  <div class="layout">
+    <el-container>
+      <el-aside width="220px">
+        
+      </el-aside>
+      <el-container style="height: 100vh;">
+        <el-header style="height: 50px;">
+          
+        </el-header>
+        <el-main>
+          <AppMain></AppMain>
+        </el-main>
+      </el-container>
+    </el-container>
+  </div>
+</template>
+
+<script>
+import AppMain from './components/AppMain.vue'
+
+export default {
+  components: {
+    AppMain
+  }
+}
+</script>
+```
+
+
+
+views/plugin/menu1/list/index.vue
+
+```vue
+<template>
+  <router-view />
+</template>
+```
+
+
+
+
 
 
 
